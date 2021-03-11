@@ -116,7 +116,15 @@ public class GameManager : MonoBehaviour
     {
         if (collectedCubes.Count>0)
         {
-            groundObject = collectedCubes[collectedCubes.Count - 1];
+            if (collectedCubes[collectedCubes.Count - 1]!=null)
+            {
+                groundObject = collectedCubes[collectedCubes.Count - 1];
+            }
+            else
+            {
+                groundObject = collectedCubes[collectedCubes.Count - 2];
+                collectedBlueCubes.Remove(collectedBlueCubes[collectedBlueCubes.Count - 1]);
+            }
         }
         else
         {
