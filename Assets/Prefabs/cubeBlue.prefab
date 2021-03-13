@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3210488963317120881}
   - component: {fileID: -1769776484270707266}
   - component: {fileID: 4875804721688321327}
-  - component: {fileID: 589895796167830688}
+  - component: {fileID: -3409267083579665364}
   m_Layer: 0
   m_Name: cubeBlue
   m_TagString: box
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 1
---- !u!114 &589895796167830688
+--- !u!114 &-3409267083579665364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
