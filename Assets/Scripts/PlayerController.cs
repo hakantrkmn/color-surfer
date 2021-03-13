@@ -31,9 +31,10 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            var direction = (Input.mousePosition - mouseStartPosition).normalized;
+            var direction = (Input.mousePosition - mouseStartPosition)/ Screen.width ;
+            //mousePositionun y değerini directiona eklemediğimiz için karaktere y ekseninde bir etki etmiyor
             direction = new Vector3((direction.x * horizontalSpeed) + transform.position.x, transform.position.y, transform.position.z);
-            transform.position = direction ;
+            transform.position= direction ;
         }
     }
 

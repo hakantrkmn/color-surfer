@@ -86,19 +86,20 @@ public class GameManager : MonoBehaviour
         if (haveAllColors)
         {
             collectedCubes.Remove(collectedBlueCubes[0]);
-            Destroy(collectedBlueCubes[0]);
-
             collectedCubes.Remove(collectedGreenCubes[0]);
-            Destroy(collectedGreenCubes[0]);
-            
             collectedCubes.Remove(collectedPurpleCubes[0]);
-            Destroy(collectedPurpleCubes[0]);
-            
             collectedCubes.Remove(collectedRedCubes[0]);
+            collectedCubes.Remove(collectedYellowCubes[0]);
+            
+
+            
+            
+            Destroy(collectedYellowCubes[0]);
+            Destroy(collectedBlueCubes[0]);
+            Destroy(collectedGreenCubes[0]);
+            Destroy(collectedPurpleCubes[0]);
             Destroy(collectedRedCubes[0]);
             
-            collectedCubes.Remove(collectedYellowCubes[0]);
-            Destroy(collectedYellowCubes[0]);
         }
         //listeleri temizle
         collectedRedCubes.Clear();
@@ -108,12 +109,15 @@ public class GameManager : MonoBehaviour
         collectedGreenCubes.Clear();
 
         //ground objeyi yenile
-        FindGroundObj();
+        StartCoroutine(FindGroundObj());
        
     }
 
-    public void FindGroundObj()
+
+    //destroy metodu hemen çalışmadığı için sorun oluyordu.frame yi bekleyip çalıştırdığımızda düzeldi.
+    IEnumerator FindGroundObj()
     {
+        yield return new WaitForEndOfFrame();
         if (collectedCubes.Count>0)
         {
             if (collectedCubes[collectedCubes.Count - 1]!=null)

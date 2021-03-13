@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18183844, g: 0.22751325, b: 0.30741978, a: 1}
+  m_IndirectSpecularColor: {r: 0.4486364, g: 0.49868852, b: 0.5756736, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6406a053fd539a4478b0020c998f2945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zDistance: 0.5
+  zDistance: 0.3
   cubes: {fileID: 1819497725}
   Cubes:
   - {fileID: 4002871878568615588, guid: b2086ef7325c8f54aad3b06279712721, type: 3}
@@ -1193,7 +1193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975183759}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 4.098, z: 15}
+  m_LocalPosition: {x: 0, y: 4.098, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 331019647}
@@ -1241,8 +1241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108924a8f57fcc742afa3d9ef9912178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 0.005
-  horizontalSpeed: 0.008
+  forwardSpeed: 0.009
+  horizontalSpeed: 0.02
 --- !u!1001 &979241178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1450,7 +1450,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4084079, y: 0.07081699, z: 0.49736023}
+  m_Size: {x: 0.4084079, y: 0.07081699, z: 0.02}
   m_Center: {x: -0.011775956, y: -0.041022778, z: 0.2513199}
 --- !u!1 &1037683740
 GameObject:
@@ -3010,7 +3010,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4084079, y: 0.07081699, z: 0.49736023}
+  m_Size: {x: 0.4084079, y: 0.07081699, z: 0.02}
   m_Center: {x: -0.011775956, y: -0.041022778, z: 0.2513199}
 --- !u!1001 &2144073512
 PrefabInstance:

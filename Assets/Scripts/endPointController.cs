@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class endPointController : MonoBehaviour
+public class EndPointController : MonoBehaviour
 {
+    GameObject player;
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.tag=="Player" || other.tag== "CollectedBox")
+        player = GameManager.Instance.Player;
+    }
+    private void Update()
+    {
+        CheckEndPoint();
+    }
+
+    private void CheckEndPoint()
+    {
+        if (player.transform.position.z>transform.position.z)
         {
             transform.parent.position += new Vector3(0, 0, 85);
         }
-
     }
+
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class boxController : MonoBehaviour
+public class BoxController : MonoBehaviour
 {
     GameObject parent;
     public GameObject player;

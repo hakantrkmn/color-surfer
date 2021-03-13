@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class windController : MonoBehaviour
+public class WindController : MonoBehaviour
 {
     public GameObject target;
     public Vector3 offset;
