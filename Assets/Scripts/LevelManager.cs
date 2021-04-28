@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
 
     private static LevelManager _instance;
 
+
     public static LevelManager Instance
     {
         get
@@ -31,7 +32,7 @@ public class LevelManager : MonoBehaviour
 
     public float zDistance;
 
-    public GameObject cubes;
+    public GameObject cubesParent;
     public List<GameObject> Cubes;
 
     bool firstBoxes;
@@ -52,7 +53,7 @@ public class LevelManager : MonoBehaviour
         var randomInt = UnityEngine.Random.Range(0, Cubes.Count);
         var randomIntX = UnityEngine.Random.Range(-0.15f, 0.15f);
         createPos = new Vector3(randomIntX, createPos.y, createPos.z);
-        var cube = Instantiate(Cubes[randomInt], createPos,Quaternion.identity,cubes.transform);
+        var cube = Instantiate(Cubes[randomInt], createPos,Quaternion.identity,cubesParent.transform);
         createPos += new Vector3(0, 0, zDistance);
     }
 
@@ -65,10 +66,11 @@ public class LevelManager : MonoBehaviour
                 var random = UnityEngine.Random.Range(0, Cubes.Count);
                 var randomX = UnityEngine.Random.Range(-0.15f, 0.15f);
                 createPos = new Vector3(randomX, createPos.y, createPos.z);
-                var cube1 = Instantiate(Cubes[random], createPos, Quaternion.identity,cubes.transform);
+                var cube1 = Instantiate(Cubes[random], createPos, Quaternion.identity,cubesParent.transform);
                 createPos += new Vector3(0, 0, zDistance);
             }
             firstBoxes = false;
         }
     }
+    
 }
