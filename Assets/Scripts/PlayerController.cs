@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,14 +8,65 @@ public class PlayerController : MonoBehaviour
     public float forwardSpeed;
     public float horizontalSpeed;
 
+    public float referansPoint;
+
+
+    public Animator animator;
+
+    public static event Action PassedEngel;
+    public static event Action<int> UpdatePoint;
+
     void Start()
     {
+        referansPoint = GameManager.Instance.referansEngelCube.transform.position.z;
+        animator = gameObject.GetComponentInChildren<Animator>();
         GameManager.Instance.groundObject = gameObject;
     }
 
     void Update()
     {
-        move();
+        checkPlayerPassedEngel();
+        if (GameManager.Instance.groundObject != gameObject)
+        {
+            animator.SetBool("ground", false);
+        }
+        else
+        {
+            animator.SetBool("ground", true);
+        }
+        if (GameManager.Instance.gameState == GameManager.gameStates.game)
+        {
+            move();
+        }
+        else
+        {
+
+        }
+    }
+
+    private void checkPlayerPassedEngel()
+    {
+        if (transform.position.z > referansPoint)
+        {
+            if (GameManager.Instance.engelLimit != 0)
+            {
+                    if (PassedEngel != null)
+                    {
+                        PassedEngel();
+                    }
+                    GameManager.Instance.engelLimit--;
+            }
+            else
+            {
+                GameManager.Instance.gameState = GameManager.gameStates.end;
+                if (PlayerPrefs.HasKey("level"))
+                {
+                    PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
+                    SceneManager.LoadScene(0);
+                }
+            }
+
+        }
     }
 
     private void move()
@@ -50,6 +100,8 @@ public class PlayerController : MonoBehaviour
                 collision.transform.parent = gameObject.transform;
                 GameManager.Instance.groundObject = collision.gameObject;
                 GameManager.Instance.collectedCubes.Add(collision.gameObject);
+                GameManager.Instance.point += 50;
+                UpdatePoint(GameManager.Instance.point);
             }
            
         }
