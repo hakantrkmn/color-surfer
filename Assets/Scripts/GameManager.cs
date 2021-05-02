@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-    public enum gameStates { start,game,end };
+    public enum gameStates { start,game,end,winEnd };
     public gameStates gameState;
 
     public int level;
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     public GameObject groundObject;
     public Transform referansEngelCube;
     public ParticleSystem cubeParticle;
+
+    public GameObject cubeTakeText;
 
     public List<GameObject> collectedCubes;
 
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         levelEngelSettings();
-        gameState = gameStates.game;
+        gameState = gameStates.start;
     }
 
     private void levelEngelSettings()
@@ -68,18 +70,22 @@ public class GameManager : MonoBehaviour
         {
             level = 0;
             PlayerPrefs.SetInt("level", 0);
+            LevelManager.Instance.zDistance = 0.6f;
         }
         if (level >= 0 && level<10)
         {
             engelLimit = 0;
+            LevelManager.Instance.zDistance = 0.5f;
         }
         else if (level >= 10 && level <30)
         {
             engelLimit = 1;
+            LevelManager.Instance.zDistance = 0.4f;
         }
         else if (level >= 30)
         {
             engelLimit = 2;
+            LevelManager.Instance.zDistance = 0.3f;
         }
     }
 
@@ -173,6 +179,12 @@ public class GameManager : MonoBehaviour
             thisParticle5.GetComponent<ParticleSystemRenderer>().material = collectedRedCubes[0].GetComponent<MeshRenderer>().material;
             Destroy(collectedRedCubes[0]);
             Destroy(thisParticle5, 2);
+
+            Camera.main.GetComponent<CameraController>().offset += new Vector3(0, 0, 5*0.05f);
+
+            var text = Instantiate(cubeTakeText, Player.transform.position + new Vector3(0.05f, 0.05f, 0), Quaternion.identity);
+            text.GetComponent<TextMesh>().text = "+1000";
+            Destroy(text, 0.5f);
 
             point += 1000;
         }

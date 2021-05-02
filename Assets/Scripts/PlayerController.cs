@@ -25,22 +25,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        checkPlayerPassedEngel();
-        if (GameManager.Instance.groundObject != gameObject)
-        {
-            animator.SetBool("ground", false);
-        }
-        else
-        {
-            animator.SetBool("ground", true);
-        }
+
         if (GameManager.Instance.gameState == GameManager.gameStates.game)
         {
+            
             move();
+            if (GameManager.Instance.groundObject != gameObject)
+            {
+                animator.SetBool("ground", false);
+            }
+            else
+            {
+                animator.SetBool("ground", true);
+            }
+            checkPlayerPassedEngel();
         }
-        else
+        else if(GameManager.Instance.gameState == GameManager.gameStates.winEnd)
         {
-
+            animator.SetBool("dance", true);
         }
     }
 
@@ -58,11 +60,10 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                GameManager.Instance.gameState = GameManager.gameStates.end;
                 if (PlayerPrefs.HasKey("level"))
                 {
                     PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
-                    SceneManager.LoadScene(0);
+                    GameManager.Instance.gameState = GameManager.gameStates.winEnd;
                 }
             }
 
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
                 collision.transform.parent = gameObject.transform;
                 GameManager.Instance.groundObject = collision.gameObject;
                 GameManager.Instance.collectedCubes.Add(collision.gameObject);
-                GameManager.Instance.point += 50;
+                GameManager.Instance.point += 100;
                 UpdatePoint(GameManager.Instance.point);
             }
            

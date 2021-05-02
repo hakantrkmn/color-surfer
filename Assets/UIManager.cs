@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,11 @@ public class UIManager : MonoBehaviour
     public GameObject panel;
     public Text point;
     public Text level;
+    public GameObject startScreen;
+    public GameObject winScreen;
+    public GameObject loseScreen;
+
+    bool endCheck = true;
 
     private void Awake()
     {
@@ -21,6 +27,48 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         level.text = "Level "+PlayerPrefs.GetInt("level").ToString();
+        Destroy(level, 2);
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (GameManager.Instance.gameState==GameManager.gameStates.start)
+            {
+                GameManager.Instance.gameState = GameManager.gameStates.game;
+            }
+        }
+
+        if (GameManager.Instance.gameState==GameManager.gameStates.winEnd && endCheck)
+        {
+            winScreen.SetActive(true);
+            if (GameManager.Instance.collectedCubes.Count!=0)
+            {
+                GameManager.Instance.point -= GameManager.Instance.collectedCubes.Count * 100;
+                UpdatePoint(GameManager.Instance.point);
+            }
+            endCheck = false;
+        }
+        else if (GameManager.Instance.gameState == GameManager.gameStates.end && endCheck)
+        {
+            loseScreen.SetActive(true);
+            if (GameManager.Instance.collectedCubes.Count != 0)
+            {
+                GameManager.Instance.point -= GameManager.Instance.collectedCubes.Count * 100;
+                UpdatePoint(GameManager.Instance.point);
+            }
+            endCheck = false;
+        }
+
+        startScreenControl();
+    }
+
+    private void startScreenControl()
+    {
+        if (GameManager.Instance.gameState==GameManager.gameStates.game)
+        {
+            Destroy(startScreen);
+        }
     }
 
     private void UpdatePoint(int obj)
@@ -28,10 +76,13 @@ public class UIManager : MonoBehaviour
         point.text = obj.ToString();
     }
 
+    public void nextLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void ShowPattern(List<GameObject> obj)
     {
-        //bakılacak !!
-
         if (panel.transform.childCount!=0)
         {
             for (int i = 0; i < panel.transform.childCount; i++)

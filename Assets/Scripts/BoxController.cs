@@ -11,6 +11,8 @@ public class BoxController : MonoBehaviour
     public ParticleSystem particle;
     public static event Action<int> UpdatePoint;
 
+    public GameObject cubeTakeText;
+
     void Start()
     {
         player = GameManager.Instance.Player;
@@ -39,14 +41,17 @@ public class BoxController : MonoBehaviour
                 parent = transform.parent.gameObject;
 
                 LevelManager.Instance.createBox();
-                parent.transform.position += new Vector3(0, .065f, 0);
-                collision.transform.position = transform.position - new Vector3(0, .03f, 0);
+                parent.transform.position += new Vector3(0, .1f, 0);
+                collision.transform.position = transform.position - new Vector3(0, .1f, 0);
                 collision.transform.parent = parent.transform;
+                var text = Instantiate(cubeTakeText, gameObject.transform.parent.position + new Vector3(0.05f,0.05f,0), Quaternion.identity);
+                Destroy(text, 0.5f);
                 gameObject.tag = "CollectedBox";
                 GameManager.Instance.collectedCubes.Add(collision.gameObject);
                 GameManager.Instance.CheckCubes();
-                GameManager.Instance.point += 50;
+                GameManager.Instance.point += 100;
                 UpdatePoint(GameManager.Instance.point);
+                Camera.main.GetComponent<CameraController>().offset += new Vector3(0, 0, -0.05f);
 
             }
 
@@ -64,7 +69,7 @@ public class BoxController : MonoBehaviour
             else
             {
                 GameManager.Instance.gameState = GameManager.gameStates.end;
-                SceneManager.LoadScene(0);
+                //SceneManager.LoadScene(0);
 
             }
         }

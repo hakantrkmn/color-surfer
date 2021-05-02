@@ -21,7 +21,7 @@ public class ObstacleManager : MonoBehaviour
     private void Start()
     {
         levelEngelSettings();
-        engelZDistance = 15;
+        engelZDistance = 30;
         level = GameManager.Instance.level;
         PlayerController.PassedEngel += createEngel;
         createEngel();
