@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+    public static event Action gameStarted;
+
     bool endCheck = true;
 
     private void Awake()
@@ -36,6 +38,7 @@ public class UIManager : MonoBehaviour
             if (GameManager.Instance.gameState==GameManager.gameStates.start)
             {
                 GameManager.Instance.gameState = GameManager.gameStates.game;
+                gameStarted();
             }
         }
 

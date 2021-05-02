@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,16 +11,21 @@ public class WindController : MonoBehaviour
     private void Start()
     {
         target = GameManager.Instance.Player;
+        UIManager.gameStarted += ParticleStart;
     }
+
+    private void ParticleStart()
+    {
+            gameObject.GetComponent<ParticleSystem>().Play();
+    }
+
     void Update()
     {
-        if (GameManager.Instance.gameState==GameManager.gameStates.game)
-        {
-            gameObject.GetComponent<ParticleSystem>().Play();
-        }
+
         transform.position = target.transform.position + offset;
         if (GameManager.Instance.gameState==GameManager.gameStates.end || GameManager.Instance.gameState == GameManager.gameStates.winEnd)
         {
+            gameObject.GetComponent<ParticleSystem>().Stop();
             Destroy(gameObject);
         }
     }
